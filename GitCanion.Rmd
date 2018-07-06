@@ -31,14 +31,14 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 
 ```{r}
-tiro <- function(d,h, col){
+tiro <- function(d,h, col, add = TRUE){
   a <- -h/(d/2)^2
   b <- 4*h/d
   c <- h+a*(d/2)^2
   
-  curve(a*x^2+b*x+10+c, from = 0, to = d, add = TRUE, col = col)
+  curve(a*x^2+b*x+10+c, from = 0, to = d, add = add, col = col)
 }
-tiro(1000,10, "green")
+tiro(1000,10, "green", FALSE)
 tiro(100,10, "blue")
 tiro(100,5, "red")
 ```
