@@ -4,7 +4,31 @@ author: "Galileo Cappella"
 date: "July 6, 2018"
 output: html_document
 ---
-Pruebo mi funcion del canion
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
 
 ```{r}
 tiro <- function(d,h, col){
@@ -17,10 +41,4 @@ tiro <- function(d,h, col){
 tiro(1000,10, "green")
 tiro(100,10, "blue")
 tiro(100,5, "red")
-```
-
-Ahora puedo calcular cualqier tiro parabolico qe qiera, sabiendo la distancia y altura maxima.
-
-```{r}
-
 ```
