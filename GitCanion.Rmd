@@ -32,7 +32,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ```{r}
 tiro <- function(d,h, col, add = TRUE){
-  a <- -h/(d/2)^2
+  a <- -h/(d/2)^2 
   b <- 4*h/d
   c <- h+a*(d/2)^2
   
