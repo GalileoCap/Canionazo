@@ -1,0 +1,26 @@
+---
+title: "Canion"
+author: "Galileo Cappella"
+date: "July 6, 2018"
+output: html_document
+---
+Pruebo mi funcion del canion
+
+```{r}
+tiro <- function(d,h, col){
+  a <- -h/(d/2)^2
+  b <- 4*h/d
+  c <- h+a*(d/2)^2
+  
+  curve(a*x^2+b*x+10+c, from = 0, to = d, add = TRUE, col = col)
+}
+tiro(1000,10, "green")
+tiro(100,10, "blue")
+tiro(100,5, "red")
+```
+
+Ahora puedo calcular cualqier tiro parabolico qe qiera, sabiendo la distancia y altura maxima.
+
+```{r}
+
+```
