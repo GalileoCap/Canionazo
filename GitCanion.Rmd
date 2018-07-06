@@ -2,7 +2,7 @@
 title: "Canion"
 author: "Galileo Cappella"
 date: "July 6, 2018"
-output: rmarkdown::githubdocument
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
