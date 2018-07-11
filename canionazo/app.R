@@ -36,13 +36,13 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("tiro")
+         plotOutput("tiro_bas")
       )
    )
 )
 
 #Mi funcion
-tiro <- function(d,h, col){
+tiro_bas <- function(d,h, col){
   a <- -h/(d/2)^2 
   b <- 4*h/d
   c <- h+a*(d/2)^2
@@ -59,8 +59,8 @@ tiro <- function(d,h, col){
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$tiro <- renderPlot({
-     tiro(input$d,input$h, input$color)
+   output$tiro_bas <- renderPlot({
+     tiro_bas(input$d,input$h, input$color)
    })
 }
 

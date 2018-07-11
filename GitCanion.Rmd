@@ -8,14 +8,59 @@ output: rmarkdown::github_document
 Tiro parabolico, probado con tres alturas maximas y distancias diferentes.
 
 ```{r}
-tiro <- function(d,h, col, add = TRUE){
+tiro_bas <- function(d,h, col, add = TRUE){
   a <- -h/(d/2)^2 
   b <- 4*h/d
   c <- h+a*(d/2)^2
   
   curve(a*x^2+b*x+10+c, from = 0, to = d, add = add, col = col)
 }
-tiro(1000,10, "green", FALSE)
-tiro(100,10, "blue")
-tiro(100,5, "red")
+tiro_bas(1000,10, "green", FALSE)
+tiro_bas(100,10, "blue")
+tiro_bas(100,5, "red")
 ```
+
+Qiero hacer el tiro parabolico teniendo en cuenta el angulo y la velocidad de salida (las cosas qe puedo controlar desde mi canion)
+
+Prueba de donde tiene qe caer
+```{r}
+tiro_ang <- function(v0, rad, col){
+  g <- 9.8
+  ang <- rad*0.01745329252
+  stripchart((v0^2)/g*cos(ang)*sin(ang))
+}
+tiro_ang(100, 60, "green")
+tiro_ang(100, 45, "brown")
+```
+
+Y ahora agrego las ecuaciones qe use ahi, a la funcion del tiro parabolico
+
+```{r}
+tiro_ang_y <- function(v0, rad, x){
+  g <- 9.80665
+  ang <- rad*0.01745329252
+  d <- (v0^2)/g*cos(ang)*sin(ang)
+  h <- ((d/2)^2)-((d/2)/cos(ang))^2
+  a <- -(h^1/2)/(d/2)^2 
+  b <- 4*(h^1/2)/d
+  c <- (h^1/2)+a*(d/2)^2
+  
+  y <- -(a*x^2+b*x+10+c) #Calcula el y
+  ifelse(y<0, NA, y) #Si y es menor qe 0 (choco contra el piso), devuelve nada, si es mayor me da el valor.
+}
+
+tiro_ang <- function(v0, rad, col, qiereAdd = TRUE){
+  
+  curve(tiro_ang_y(v0, rad, x),
+        xlab = "Distancia",
+        ylab = "Altura",
+        from = 0,
+        to = 500,
+        add = qiereAdd,
+        col = col)
+}
+tiro_ang(100, 60, "green", FALSE)
+tiro_ang(100, 45, "brown")
+```
+
+Los graficos me dieron bien
