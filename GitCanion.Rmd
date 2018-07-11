@@ -24,9 +24,9 @@ Qiero hacer el tiro parabolico teniendo en cuenta el angulo y la velocidad de sa
 
 Prueba de donde tiene qe caer
 ```{r}
-tiro_ang <- function(v0, rad, col){
+tiro_ang <- function(v0, ang_en_grados, col){
   g <- 9.8
-  ang <- rad*0.01745329252
+  ang <- ang_en_grados*0.01745329252
   stripchart((v0^2)/g*cos(ang)*sin(ang))
 }
 tiro_ang(100, 60, "green")
@@ -36,22 +36,27 @@ tiro_ang(100, 45, "brown")
 Y ahora agrego las ecuaciones qe use ahi, a la funcion del tiro parabolico
 
 ```{r}
-tiro_ang_y <- function(v0, rad, x){
-  g <- 9.80665
-  ang <- rad*0.01745329252
-  d <- (v0^2)/g*cos(ang)*sin(ang)
-  h <- ((d/2)^2)-((d/2)/cos(ang))^2
-  a <- -(h^1/2)/(d/2)^2 
-  b <- 4*(h^1/2)/d
-  c <- (h^1/2)+a*(d/2)^2
-  
-  y <- -(a*x^2+b*x+10+c) #Calcula el y
+g <- 9.80665 #Aceleracion de la gravedad
+tiro_ang_params <- function(v0, ang_en_grados){ #U: Los params para un tiro
+  r <- list()
+  r$ang <- ang_en_grados*pi/180 #Pasa a radianes
+  r$d <- (v0^2)/g*cos(r$ang)*sin(r$ang)
+  r$h <- ((r$d/2)^2)-((r$d/2)/cos(r$ang))^2
+  r$a <- -(r$h^1/2)/(r$d/2)^2 
+  r$b <- 4*(r$h^1/2)/r$d
+  r$c <- (r$h^1/2)+r$a*(r$d/2)^2
+  r
+}
+
+tiro_ang_y <- function(v0, ang_en_grados, x){ #U: La altura para cada punto del tiro
+  p <- tiro_ang_params(v0, ang_en_grados)
+  y <- -(p$a*x^2+p$b*x+p$c) #Calcula el y
   ifelse(y<0, NA, y) #Si y es menor qe 0 (choco contra el piso), devuelve nada, si es mayor me da el valor.
 }
 
-tiro_ang <- function(v0, rad, col, qiereAdd = TRUE){
+tiro_ang <- function(v0, ang_en_grados, col, qiereAdd = TRUE){
   
-  curve(tiro_ang_y(v0, rad, x),
+  curve(tiro_ang_y(v0, ang_en_grados, x),
         xlab = "Distancia",
         ylab = "Altura",
         from = 0,
